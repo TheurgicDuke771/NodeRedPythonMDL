@@ -1,1 +1,636 @@
-[]
+[
+    {
+        "id": "d9127fb3f435705f",
+        "type": "tab",
+        "label": "MDL",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "f05dcebfaece5778",
+        "type": "ui_tab",
+        "name": "My Drama List Charts For Current Quater",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "a30ca295ecc479c1",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "216ab27bae3fb75d",
+        "type": "ui_group",
+        "name": "MDL Top 100 Dramas Country wise Chart",
+        "tab": "f05dcebfaece5778",
+        "order": 1,
+        "disp": true,
+        "width": "15",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "4a871210b6c2e8e1",
+        "type": "ui_group",
+        "name": "Top 15 Korean Dramas",
+        "tab": "f05dcebfaece5778",
+        "order": 2,
+        "disp": true,
+        "width": "15",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "e38d88a439de5826",
+        "type": "ui_group",
+        "name": "Top 15 Chinese Dramas",
+        "tab": "f05dcebfaece5778",
+        "order": 3,
+        "disp": true,
+        "width": "15",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "74171b52c3849283",
+        "type": "ui_group",
+        "name": "Top 15 Japanese Dramas",
+        "tab": "f05dcebfaece5778",
+        "order": 4,
+        "disp": true,
+        "width": "15",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "3dc2be7d73f5c349",
+        "type": "pythonshell in",
+        "z": "d9127fb3f435705f",
+        "name": "MDL T100 Chart",
+        "pyfile": "/home/pi/Development/mdl_chart.py",
+        "virtualenv": "/home/pi/Development/mdlenv",
+        "continuous": false,
+        "stdInData": false,
+        "x": 400,
+        "y": 140,
+        "wires": [
+            [
+                "764c91e0a470fa0d",
+                "3dd916728b48fe2d"
+            ]
+        ]
+    },
+    {
+        "id": "9462d042c1b630e9",
+        "type": "inject",
+        "z": "d9127fb3f435705f",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 400,
+        "wires": [
+            [
+                "3dc2be7d73f5c349",
+                "98c108d047d72462",
+                "fb42c9ab74f00fa5",
+                "a8bffd0775d2ebb6"
+            ]
+        ]
+    },
+    {
+        "id": "98c108d047d72462",
+        "type": "pythonshell in",
+        "z": "d9127fb3f435705f",
+        "name": "MDL K Drama",
+        "pyfile": "/home/pi/Development/mdl_kdrama.py",
+        "virtualenv": "/home/pi/Development/mdlenv",
+        "continuous": false,
+        "stdInData": false,
+        "x": 400,
+        "y": 280,
+        "wires": [
+            [
+                "5d6fac8c7167c2b2",
+                "ae41395fa3d2908d"
+            ]
+        ]
+    },
+    {
+        "id": "fb42c9ab74f00fa5",
+        "type": "pythonshell in",
+        "z": "d9127fb3f435705f",
+        "name": "MDL C Drama",
+        "pyfile": "/home/pi/Development/mdl_cdrama.py",
+        "virtualenv": "/home/pi/Development/mdlenv",
+        "continuous": false,
+        "stdInData": false,
+        "x": 400,
+        "y": 520,
+        "wires": [
+            [
+                "77873cd956510b0e",
+                "0766912c88e1dcc6"
+            ]
+        ]
+    },
+    {
+        "id": "a8bffd0775d2ebb6",
+        "type": "pythonshell in",
+        "z": "d9127fb3f435705f",
+        "name": "MDL J Drama",
+        "pyfile": "/home/pi/Development/mdl_jdrama.py",
+        "virtualenv": "/home/pi/Development/mdlenv",
+        "continuous": false,
+        "stdInData": false,
+        "x": 400,
+        "y": 660,
+        "wires": [
+            [
+                "c7bd0bce070b1ec4",
+                "5ae45e4658d13a69"
+            ]
+        ]
+    },
+    {
+        "id": "c3e7b51913bb82b6",
+        "type": "ui_table",
+        "z": "d9127fb3f435705f",
+        "group": "4a871210b6c2e8e1",
+        "name": "",
+        "order": 1,
+        "width": "15",
+        "height": "8",
+        "columns": [
+            {
+                "field": "title",
+                "title": "Title",
+                "width": "230",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "episodes",
+                "title": "Episodes",
+                "width": "100",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "ranking",
+                "title": "Ranking",
+                "width": "90",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "genres",
+                "title": "Generes",
+                "width": "280",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "rating",
+                "title": "Rating",
+                "width": "90",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            }
+        ],
+        "outputs": 0,
+        "cts": false,
+        "x": 870,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "6158dbda60225da6",
+        "type": "ui_table",
+        "z": "d9127fb3f435705f",
+        "group": "e38d88a439de5826",
+        "name": "",
+        "order": 2,
+        "width": "15",
+        "height": "8",
+        "columns": [
+            {
+                "field": "title",
+                "title": "Title",
+                "width": "230",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "episodes",
+                "title": "Episodes",
+                "width": "100",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "ranking",
+                "title": "Ranking",
+                "width": "90",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "genres",
+                "title": "Genres",
+                "width": "280",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "rating",
+                "title": "Rating",
+                "width": "90",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            }
+        ],
+        "outputs": 0,
+        "cts": false,
+        "x": 870,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "7ecc9f95417b9530",
+        "type": "ui_table",
+        "z": "d9127fb3f435705f",
+        "group": "74171b52c3849283",
+        "name": "",
+        "order": 3,
+        "width": "15",
+        "height": "8",
+        "columns": [
+            {
+                "field": "title",
+                "title": "Title",
+                "width": "230",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "episodes",
+                "title": "Episodes",
+                "width": "100",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "ranking",
+                "title": "Ranking",
+                "width": "90",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "genres",
+                "title": "Genres",
+                "width": "280",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "rating",
+                "title": "Rating",
+                "width": "90",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            }
+        ],
+        "outputs": 0,
+        "cts": false,
+        "x": 870,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "764c91e0a470fa0d",
+        "type": "debug",
+        "z": "d9127fb3f435705f",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 880,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "5d6fac8c7167c2b2",
+        "type": "debug",
+        "z": "d9127fb3f435705f",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 890,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "77873cd956510b0e",
+        "type": "debug",
+        "z": "d9127fb3f435705f",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 890,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "c7bd0bce070b1ec4",
+        "type": "debug",
+        "z": "d9127fb3f435705f",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 890,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "3dd916728b48fe2d",
+        "type": "json",
+        "z": "d9127fb3f435705f",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 640,
+        "y": 200,
+        "wires": [
+            [
+                "08de4ca62efb5bdb"
+            ]
+        ]
+    },
+    {
+        "id": "ae41395fa3d2908d",
+        "type": "json",
+        "z": "d9127fb3f435705f",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 650,
+        "y": 340,
+        "wires": [
+            [
+                "c3e7b51913bb82b6"
+            ]
+        ]
+    },
+    {
+        "id": "0766912c88e1dcc6",
+        "type": "json",
+        "z": "d9127fb3f435705f",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 650,
+        "y": 580,
+        "wires": [
+            [
+                "6158dbda60225da6"
+            ]
+        ]
+    },
+    {
+        "id": "5ae45e4658d13a69",
+        "type": "json",
+        "z": "d9127fb3f435705f",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 650,
+        "y": 720,
+        "wires": [
+            [
+                "7ecc9f95417b9530"
+            ]
+        ]
+    },
+    {
+        "id": "08de4ca62efb5bdb",
+        "type": "ui_chart",
+        "z": "d9127fb3f435705f",
+        "name": "",
+        "group": "216ab27bae3fb75d",
+        "order": 3,
+        "width": "15",
+        "height": "8",
+        "label": "Country wise No of Dramas",
+        "chartType": "pie",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 940,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    }
+]
