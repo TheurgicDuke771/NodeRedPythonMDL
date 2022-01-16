@@ -14,6 +14,6 @@ df = pd.DataFrame(response.json())
 
 k_df = df[(df['country'] == 'South Korea') & (df['type'] != 'Movie')].sort_values(by=['ranking']).reset_index()
 
-print(k_df[['title', 'episodes', 'ranking', 'genres','rating']].head(15).to_json(orient='records'))
+print(k_df[['title', 'episodes', 'ranking', 'genres','rating']].head(10).to_json(orient='records'))
 
 

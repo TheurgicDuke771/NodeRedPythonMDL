@@ -126,7 +126,7 @@
     {
         "id": "4a871210b6c2e8e1",
         "type": "ui_group",
-        "name": "Top 15 Korean Dramas",
+        "name": "Top 10 Korean Dramas",
         "tab": "f05dcebfaece5778",
         "order": 2,
         "disp": true,
@@ -137,7 +137,7 @@
     {
         "id": "e38d88a439de5826",
         "type": "ui_group",
-        "name": "Top 15 Chinese Dramas",
+        "name": "Top 10 Chinese Dramas",
         "tab": "f05dcebfaece5778",
         "order": 3,
         "disp": true,
@@ -148,7 +148,7 @@
     {
         "id": "74171b52c3849283",
         "type": "ui_group",
-        "name": "Top 15 Japanese Dramas",
+        "name": "Top 10 Japanese Dramas",
         "tab": "f05dcebfaece5778",
         "order": 4,
         "disp": true,
@@ -268,7 +268,7 @@
         "name": "",
         "order": 1,
         "width": "15",
-        "height": "8",
+        "height": "7",
         "columns": [
             {
                 "field": "title",
@@ -293,7 +293,7 @@
             {
                 "field": "ranking",
                 "title": "Ranking",
-                "width": "90",
+                "width": "100",
                 "align": "left",
                 "formatter": "plaintext",
                 "formatterParams": {
@@ -335,7 +335,7 @@
         "name": "",
         "order": 2,
         "width": "15",
-        "height": "8",
+        "height": "6",
         "columns": [
             {
                 "field": "title",
@@ -360,7 +360,7 @@
             {
                 "field": "ranking",
                 "title": "Ranking",
-                "width": "90",
+                "width": "100",
                 "align": "left",
                 "formatter": "plaintext",
                 "formatterParams": {
@@ -402,7 +402,7 @@
         "name": "",
         "order": 3,
         "width": "15",
-        "height": "8",
+        "height": "6",
         "columns": [
             {
                 "field": "title",
@@ -427,7 +427,7 @@
             {
                 "field": "ranking",
                 "title": "Ranking",
-                "width": "90",
+                "width": "100",
                 "align": "left",
                 "formatter": "plaintext",
                 "formatterParams": {
@@ -597,7 +597,7 @@
         "group": "216ab27bae3fb75d",
         "order": 3,
         "width": "15",
-        "height": "8",
+        "height": "7",
         "label": "Country wise No of Dramas",
         "chartType": "pie",
         "legend": "true",
@@ -629,6 +629,71 @@
         "className": "",
         "x": 940,
         "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "94c70d4ebef86407",
+        "type": "cronplus",
+        "z": "d9127fb3f435705f",
+        "name": "",
+        "outputField": "payload",
+        "timeZone": "",
+        "persistDynamic": false,
+        "commandResponseMsgOutput": "output1",
+        "outputs": 1,
+        "options": [
+            {
+                "name": "schedule1",
+                "topic": "schedule1",
+                "payloadType": "date",
+                "payload": "",
+                "expressionType": "cron",
+                "expression": "0 0 9/12 * * *",
+                "location": "",
+                "offset": "0",
+                "solarType": "all",
+                "solarEvents": "sunrise,sunset"
+            }
+        ],
+        "x": 140,
+        "y": 940,
+        "wires": [
+            [
+                "9f6aae76c3870412"
+            ]
+        ]
+    },
+    {
+        "id": "9f6aae76c3870412",
+        "type": "pythonshell in",
+        "z": "d9127fb3f435705f",
+        "name": "",
+        "pyfile": "/home/pi/.node-red/projects/NodeRedPythonMDL/python_scripts/mdl_psql.py",
+        "virtualenv": "/home/pi/Development/mdlenv",
+        "continuous": false,
+        "stdInData": false,
+        "x": 540,
+        "y": 940,
+        "wires": [
+            [
+                "60d709c4912aee4c"
+            ]
+        ]
+    },
+    {
+        "id": "60d709c4912aee4c",
+        "type": "file",
+        "z": "d9127fb3f435705f",
+        "name": "",
+        "filename": "/home/pi/Development/node-red_mdl.log",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 980,
+        "y": 940,
         "wires": [
             []
         ]
