@@ -13,11 +13,11 @@ mdl_list = response.json()
 
 try:
 	conn = psycopg2.connect(
-		user="xxxxx", 
-		password="xxxxx", 
-		host="xxxxx", 
-		port="xxxxx",
-		dbname="xxxxx")
+		user="postgres", 
+		password="postgres", 
+		host="localhost", 
+		port="5432",
+		dbname="MyDramaList")
 
 	cur = conn.cursor()
 
