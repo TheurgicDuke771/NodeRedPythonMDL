@@ -8,6 +8,14 @@
         "env": []
     },
     {
+        "id": "f5df1688ce4528a9",
+        "type": "tab",
+        "label": "Emby",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "f05dcebfaece5778",
         "type": "ui_tab",
         "name": "My Drama List Charts For Current Quater",
@@ -157,6 +165,47 @@
         "className": ""
     },
     {
+        "id": "7ac9d1640b3cb45f",
+        "type": "ui_tab",
+        "name": "Emby",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "803338231475a56e",
+        "type": "ui_group",
+        "name": "Last 15 Played Item",
+        "tab": "7ac9d1640b3cb45f",
+        "order": 1,
+        "disp": true,
+        "width": "15",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "7148c6eaea4a4e3f",
+        "type": "ui_group",
+        "name": "Total Play Time",
+        "tab": "7ac9d1640b3cb45f",
+        "order": 2,
+        "disp": true,
+        "width": "15",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "0b99745f3cb722d0",
+        "type": "ui_group",
+        "name": "Daily Play Time",
+        "tab": "7ac9d1640b3cb45f",
+        "order": 3,
+        "disp": true,
+        "width": "30",
+        "collapse": false,
+        "className": ""
+    },
+    {
         "id": "3dc2be7d73f5c349",
         "type": "pythonshell in",
         "z": "d9127fb3f435705f",
@@ -165,8 +214,8 @@
         "virtualenv": "/home/pi/Development/mdlenv",
         "continuous": false,
         "stdInData": false,
-        "x": 400,
-        "y": 140,
+        "x": 380,
+        "y": 80,
         "wires": [
             [
                 "764c91e0a470fa0d",
@@ -195,8 +244,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 150,
-        "y": 400,
+        "x": 130,
+        "y": 340,
         "wires": [
             [
                 "3dc2be7d73f5c349",
@@ -215,8 +264,8 @@
         "virtualenv": "/home/pi/Development/mdlenv",
         "continuous": false,
         "stdInData": false,
-        "x": 400,
-        "y": 280,
+        "x": 380,
+        "y": 220,
         "wires": [
             [
                 "5d6fac8c7167c2b2",
@@ -233,8 +282,8 @@
         "virtualenv": "/home/pi/Development/mdlenv",
         "continuous": false,
         "stdInData": false,
-        "x": 400,
-        "y": 520,
+        "x": 380,
+        "y": 460,
         "wires": [
             [
                 "77873cd956510b0e",
@@ -251,8 +300,8 @@
         "virtualenv": "/home/pi/Development/mdlenv",
         "continuous": false,
         "stdInData": false,
-        "x": 400,
-        "y": 660,
+        "x": 380,
+        "y": 600,
         "wires": [
             [
                 "c7bd0bce070b1ec4",
@@ -275,7 +324,7 @@
                 "title": "Title",
                 "width": "230",
                 "align": "left",
-                "formatter": "plaintext",
+                "formatter": "html",
                 "formatterParams": {
                     "target": "_blank"
                 }
@@ -323,8 +372,8 @@
         ],
         "outputs": 0,
         "cts": false,
-        "x": 870,
-        "y": 340,
+        "x": 850,
+        "y": 280,
         "wires": []
     },
     {
@@ -342,7 +391,7 @@
                 "title": "Title",
                 "width": "230",
                 "align": "left",
-                "formatter": "plaintext",
+                "formatter": "html",
                 "formatterParams": {
                     "target": "_blank"
                 }
@@ -390,8 +439,8 @@
         ],
         "outputs": 0,
         "cts": false,
-        "x": 870,
-        "y": 580,
+        "x": 850,
+        "y": 520,
         "wires": []
     },
     {
@@ -409,7 +458,7 @@
                 "title": "Title",
                 "width": "230",
                 "align": "left",
-                "formatter": "plaintext",
+                "formatter": "html",
                 "formatterParams": {
                     "target": "_blank"
                 }
@@ -457,8 +506,8 @@
         ],
         "outputs": 0,
         "cts": false,
-        "x": 870,
-        "y": 720,
+        "x": 850,
+        "y": 660,
         "wires": []
     },
     {
@@ -473,8 +522,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 880,
-        "y": 140,
+        "x": 860,
+        "y": 80,
         "wires": []
     },
     {
@@ -489,8 +538,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 890,
-        "y": 280,
+        "x": 870,
+        "y": 220,
         "wires": []
     },
     {
@@ -505,8 +554,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 890,
-        "y": 520,
+        "x": 870,
+        "y": 460,
         "wires": []
     },
     {
@@ -521,8 +570,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 890,
-        "y": 660,
+        "x": 870,
+        "y": 600,
         "wires": []
     },
     {
@@ -533,8 +582,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 640,
-        "y": 200,
+        "x": 620,
+        "y": 140,
         "wires": [
             [
                 "08de4ca62efb5bdb"
@@ -549,8 +598,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 650,
-        "y": 340,
+        "x": 630,
+        "y": 280,
         "wires": [
             [
                 "c3e7b51913bb82b6"
@@ -565,8 +614,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 650,
-        "y": 580,
+        "x": 630,
+        "y": 520,
         "wires": [
             [
                 "6158dbda60225da6"
@@ -581,8 +630,8 @@
         "property": "payload",
         "action": "",
         "pretty": false,
-        "x": 650,
-        "y": 720,
+        "x": 630,
+        "y": 660,
         "wires": [
             [
                 "7ecc9f95417b9530"
@@ -627,8 +676,8 @@
         "outputs": 1,
         "useDifferentColor": false,
         "className": "",
-        "x": 940,
-        "y": 200,
+        "x": 920,
+        "y": 140,
         "wires": [
             []
         ]
@@ -650,7 +699,7 @@
                 "payloadType": "date",
                 "payload": "",
                 "expressionType": "cron",
-                "expression": "0 0 9/12 * * *",
+                "expression": "0 0 0/6 * * *",
                 "location": "",
                 "offset": "0",
                 "solarType": "all",
@@ -658,7 +707,7 @@
             }
         ],
         "x": 140,
-        "y": 940,
+        "y": 780,
         "wires": [
             [
                 "9f6aae76c3870412"
@@ -675,7 +724,7 @@
         "continuous": false,
         "stdInData": false,
         "x": 540,
-        "y": 940,
+        "y": 780,
         "wires": [
             [
                 "60d709c4912aee4c"
@@ -693,9 +742,390 @@
         "overwriteFile": "false",
         "encoding": "none",
         "x": 980,
-        "y": 940,
+        "y": 780,
         "wires": [
             []
+        ]
+    },
+    {
+        "id": "f2de40939f4a4500",
+        "type": "cronplus",
+        "z": "f5df1688ce4528a9",
+        "name": "",
+        "outputField": "payload",
+        "timeZone": "",
+        "persistDynamic": false,
+        "commandResponseMsgOutput": "output1",
+        "outputs": 1,
+        "options": [
+            {
+                "name": "schedule1",
+                "topic": "schedule1",
+                "payloadType": "default",
+                "payload": "",
+                "expressionType": "cron",
+                "expression": "0 0 2 * * *",
+                "location": "",
+                "offset": "0",
+                "solarType": "all",
+                "solarEvents": "sunrise,sunset"
+            }
+        ],
+        "x": 160,
+        "y": 100,
+        "wires": [
+            [
+                "5742fd6a08b4d88f"
+            ]
+        ]
+    },
+    {
+        "id": "5742fd6a08b4d88f",
+        "type": "pythonshell in",
+        "z": "f5df1688ce4528a9",
+        "name": "",
+        "pyfile": "/home/pi/.node-red/projects/NodeRedPythonMDL/python_scripts/emby_report_cron.py",
+        "virtualenv": "/home/pi/Development/mdlenv",
+        "continuous": false,
+        "stdInData": false,
+        "x": 460,
+        "y": 100,
+        "wires": [
+            [
+                "08bb35ad2af6153d"
+            ]
+        ]
+    },
+    {
+        "id": "08bb35ad2af6153d",
+        "type": "file",
+        "z": "f5df1688ce4528a9",
+        "name": "",
+        "filename": "/home/pi/Development/node-red_emby.log",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 900,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0ff34d5bc2cecb3c",
+        "type": "pythonshell in",
+        "z": "f5df1688ce4528a9",
+        "name": "",
+        "pyfile": "/home/pi/.node-red/projects/NodeRedPythonMDL/python_scripts/emby_table.py",
+        "virtualenv": "/home/pi/Development/mdlenv",
+        "continuous": false,
+        "stdInData": false,
+        "x": 460,
+        "y": 220,
+        "wires": [
+            [
+                "d7947561a2e81287",
+                "ae7fd848506b860a"
+            ]
+        ]
+    },
+    {
+        "id": "7f89b4174ea5a266",
+        "type": "ui_table",
+        "z": "f5df1688ce4528a9",
+        "group": "803338231475a56e",
+        "name": "Last 15 Activity",
+        "order": 0,
+        "width": "15",
+        "height": "7",
+        "columns": [
+            {
+                "field": "date",
+                "title": "Date",
+                "width": "100",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "itemname",
+                "title": "Item Name",
+                "width": "570",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "devicename",
+                "title": "Device Name",
+                "width": "120",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            }
+        ],
+        "outputs": 0,
+        "cts": false,
+        "x": 1040,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "d7947561a2e81287",
+        "type": "json",
+        "z": "f5df1688ce4528a9",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 750,
+        "y": 280,
+        "wires": [
+            [
+                "7f89b4174ea5a266"
+            ]
+        ]
+    },
+    {
+        "id": "ae7fd848506b860a",
+        "type": "debug",
+        "z": "f5df1688ce4528a9",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1030,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "ed2872c45b7c84d4",
+        "type": "pythonshell in",
+        "z": "f5df1688ce4528a9",
+        "name": "",
+        "pyfile": "/home/pi/.node-red/projects/NodeRedPythonMDL/python_scripts/emby_item_total.py",
+        "virtualenv": "/home/pi/Development/mdlenv",
+        "continuous": false,
+        "stdInData": false,
+        "x": 460,
+        "y": 360,
+        "wires": [
+            [
+                "712603b9e053d2dc",
+                "a4019a39888f6e65"
+            ]
+        ]
+    },
+    {
+        "id": "4124515a394de079",
+        "type": "ui_chart",
+        "z": "f5df1688ce4528a9",
+        "name": "",
+        "group": "7148c6eaea4a4e3f",
+        "order": 0,
+        "width": "15",
+        "height": "7",
+        "label": "Item Wise Total Play Time [Hours]",
+        "chartType": "pie",
+        "legend": "true",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1100,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "712603b9e053d2dc",
+        "type": "debug",
+        "z": "f5df1688ce4528a9",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1030,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "a4019a39888f6e65",
+        "type": "json",
+        "z": "f5df1688ce4528a9",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 750,
+        "y": 420,
+        "wires": [
+            [
+                "4124515a394de079"
+            ]
+        ]
+    },
+    {
+        "id": "2b05a0b229f95f5b",
+        "type": "pythonshell in",
+        "z": "f5df1688ce4528a9",
+        "name": "",
+        "pyfile": "/home/pi/.node-red/projects/NodeRedPythonMDL/python_scripts/emby_date.py",
+        "virtualenv": "/home/pi/Development/mdlenv",
+        "continuous": false,
+        "stdInData": false,
+        "x": 460,
+        "y": 500,
+        "wires": [
+            [
+                "63865ec2c4500ddf",
+                "8f871784a3cd9f04"
+            ]
+        ]
+    },
+    {
+        "id": "63865ec2c4500ddf",
+        "type": "debug",
+        "z": "f5df1688ce4528a9",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1030,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "8f871784a3cd9f04",
+        "type": "json",
+        "z": "f5df1688ce4528a9",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 750,
+        "y": 560,
+        "wires": [
+            [
+                "9ef25d344c9e1aa3"
+            ]
+        ]
+    },
+    {
+        "id": "9ef25d344c9e1aa3",
+        "type": "ui_chart",
+        "z": "f5df1688ce4528a9",
+        "name": "",
+        "group": "0b99745f3cb722d0",
+        "order": 1,
+        "width": "27",
+        "height": "7",
+        "label": "Daily Play Time [Minutes]",
+        "chartType": "bar",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "0",
+        "ymax": "720",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1070,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d8f31755d80d3c81",
+        "type": "inject",
+        "z": "f5df1688ce4528a9",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 360,
+        "wires": [
+            [
+                "0ff34d5bc2cecb3c",
+                "ed2872c45b7c84d4",
+                "2b05a0b229f95f5b"
+            ]
         ]
     }
 ]
