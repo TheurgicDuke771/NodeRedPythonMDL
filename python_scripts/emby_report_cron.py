@@ -13,7 +13,7 @@ payload = json.dumps({
  "pw": "pass@emby"
 })
 headers = {
-	'Authorization': 'Emby UserId="d22005a18b9c49898e8ff03a67a51137",Client="Android", Device="Mi A2", DeviceId="xxx", Version="10.0"',
+	'Authorization': 'Emby UserId="d22005a18b9c49898e8ff03a67a51137",Client="Python", Device="Raspberry Pi 4B", DeviceId="xxx", Version="3.9"',
 	'Content-Type': 'application/json'
 }
 auth_response = requests.request("POST", auth_url, headers=headers, data=payload)
