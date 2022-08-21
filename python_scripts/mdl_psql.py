@@ -106,7 +106,7 @@ def inset_into_db(content_list:list) -> int:
 			else:
 				cur.execute(update_query)
 				conn.commit()
-			return len(content_list)
+		return len(content_list)
 
 	except Exception as e:
 		print(e)
