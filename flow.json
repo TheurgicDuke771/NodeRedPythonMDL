@@ -215,7 +215,7 @@
         "continuous": false,
         "stdInData": false,
         "x": 380,
-        "y": 80,
+        "y": 40,
         "wires": [
             [
                 "764c91e0a470fa0d",
@@ -245,7 +245,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 130,
-        "y": 340,
+        "y": 300,
         "wires": [
             [
                 "3dc2be7d73f5c349",
@@ -265,7 +265,7 @@
         "continuous": false,
         "stdInData": false,
         "x": 380,
-        "y": 220,
+        "y": 180,
         "wires": [
             [
                 "5d6fac8c7167c2b2",
@@ -283,7 +283,7 @@
         "continuous": false,
         "stdInData": false,
         "x": 380,
-        "y": 460,
+        "y": 420,
         "wires": [
             [
                 "77873cd956510b0e",
@@ -301,7 +301,7 @@
         "continuous": false,
         "stdInData": false,
         "x": 380,
-        "y": 600,
+        "y": 560,
         "wires": [
             [
                 "c7bd0bce070b1ec4",
@@ -373,7 +373,7 @@
         "outputs": 0,
         "cts": false,
         "x": 850,
-        "y": 280,
+        "y": 240,
         "wires": []
     },
     {
@@ -440,7 +440,7 @@
         "outputs": 0,
         "cts": false,
         "x": 850,
-        "y": 520,
+        "y": 480,
         "wires": []
     },
     {
@@ -507,7 +507,7 @@
         "outputs": 0,
         "cts": false,
         "x": 850,
-        "y": 660,
+        "y": 620,
         "wires": []
     },
     {
@@ -523,7 +523,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 860,
-        "y": 80,
+        "y": 40,
         "wires": []
     },
     {
@@ -539,7 +539,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 870,
-        "y": 220,
+        "y": 180,
         "wires": []
     },
     {
@@ -555,7 +555,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 870,
-        "y": 460,
+        "y": 420,
         "wires": []
     },
     {
@@ -571,7 +571,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 870,
-        "y": 600,
+        "y": 560,
         "wires": []
     },
     {
@@ -583,7 +583,7 @@
         "action": "",
         "pretty": false,
         "x": 620,
-        "y": 140,
+        "y": 100,
         "wires": [
             [
                 "08de4ca62efb5bdb"
@@ -599,7 +599,7 @@
         "action": "",
         "pretty": false,
         "x": 630,
-        "y": 280,
+        "y": 240,
         "wires": [
             [
                 "c3e7b51913bb82b6"
@@ -615,7 +615,7 @@
         "action": "",
         "pretty": false,
         "x": 630,
-        "y": 520,
+        "y": 480,
         "wires": [
             [
                 "6158dbda60225da6"
@@ -631,7 +631,7 @@
         "action": "",
         "pretty": false,
         "x": 630,
-        "y": 660,
+        "y": 620,
         "wires": [
             [
                 "7ecc9f95417b9530"
@@ -677,7 +677,7 @@
         "useDifferentColor": false,
         "className": "",
         "x": 920,
-        "y": 140,
+        "y": 100,
         "wires": [
             []
         ]
@@ -707,7 +707,7 @@
             }
         ],
         "x": 140,
-        "y": 780,
+        "y": 720,
         "wires": [
             [
                 "9f6aae76c3870412"
@@ -719,12 +719,12 @@
         "type": "pythonshell in",
         "z": "d9127fb3f435705f",
         "name": "",
-        "pyfile": "/home/pi/.node-red/projects/NodeRedPythonMDL/python_scripts/mdl_psql.py",
+        "pyfile": "/home/pi/.node-red/projects/NodeRedPythonMDL/python_scripts/mdl_psql_current.py",
         "virtualenv": "/home/pi/Development/mdlenv",
         "continuous": false,
         "stdInData": false,
         "x": 540,
-        "y": 780,
+        "y": 720,
         "wires": [
             [
                 "60d709c4912aee4c"
@@ -742,7 +742,72 @@
         "overwriteFile": "false",
         "encoding": "none",
         "x": 980,
-        "y": 780,
+        "y": 720,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e15e762585c687d6",
+        "type": "cronplus",
+        "z": "d9127fb3f435705f",
+        "name": "",
+        "outputField": "payload",
+        "timeZone": "",
+        "persistDynamic": false,
+        "commandResponseMsgOutput": "output1",
+        "outputs": 1,
+        "options": [
+            {
+                "name": "schedule1",
+                "topic": "schedule1",
+                "payloadType": "default",
+                "payload": "",
+                "expressionType": "cron",
+                "expression": "0 0 9 ? * SUN *",
+                "location": "",
+                "offset": "0",
+                "solarType": "all",
+                "solarEvents": "sunrise,sunset"
+            }
+        ],
+        "x": 140,
+        "y": 800,
+        "wires": [
+            [
+                "321a97fd5924f469"
+            ]
+        ]
+    },
+    {
+        "id": "321a97fd5924f469",
+        "type": "pythonshell in",
+        "z": "d9127fb3f435705f",
+        "name": "",
+        "pyfile": "/home/pi/.node-red/projects/NodeRedPythonMDL/python_scripts/mdl_psql_history.py",
+        "virtualenv": "/home/pi/Development/mdlenv",
+        "continuous": false,
+        "stdInData": false,
+        "x": 540,
+        "y": 800,
+        "wires": [
+            [
+                "00c54538cecf1c97"
+            ]
+        ]
+    },
+    {
+        "id": "00c54538cecf1c97",
+        "type": "file",
+        "z": "d9127fb3f435705f",
+        "name": "",
+        "filename": "/home/pi/Development/node-red_mdl.log",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 980,
+        "y": 800,
         "wires": [
             []
         ]
