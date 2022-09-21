@@ -206,6 +206,32 @@
         "className": ""
     },
     {
+        "id": "7710ba1174fb2d2f",
+        "type": "mqtt-broker",
+        "name": "pi4b_mqtt",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "node_red_mqtt_client",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "180",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
         "id": "3dc2be7d73f5c349",
         "type": "pythonshell in",
         "z": "d9127fb3f435705f",
@@ -220,38 +246,6 @@
             [
                 "764c91e0a470fa0d",
                 "3dd916728b48fe2d"
-            ]
-        ]
-    },
-    {
-        "id": "9462d042c1b630e9",
-        "type": "inject",
-        "z": "d9127fb3f435705f",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 130,
-        "y": 300,
-        "wires": [
-            [
-                "3dc2be7d73f5c349",
-                "98c108d047d72462",
-                "fb42c9ab74f00fa5",
-                "a8bffd0775d2ebb6"
             ]
         ]
     },
@@ -727,7 +721,8 @@
         "y": 720,
         "wires": [
             [
-                "60d709c4912aee4c"
+                "60d709c4912aee4c",
+                "d2f724c85415ecf9"
             ]
         ]
     },
@@ -772,7 +767,7 @@
             }
         ],
         "x": 140,
-        "y": 800,
+        "y": 840,
         "wires": [
             [
                 "321a97fd5924f469"
@@ -789,10 +784,11 @@
         "continuous": false,
         "stdInData": false,
         "x": 540,
-        "y": 800,
+        "y": 840,
         "wires": [
             [
-                "00c54538cecf1c97"
+                "00c54538cecf1c97",
+                "d2f724c85415ecf9"
             ]
         ]
     },
@@ -807,9 +803,70 @@
         "overwriteFile": "false",
         "encoding": "none",
         "x": 980,
-        "y": 800,
+        "y": 840,
         "wires": [
             []
+        ]
+    },
+    {
+        "id": "9febba56fdb2789d",
+        "type": "mqtt in",
+        "z": "d9127fb3f435705f",
+        "name": "",
+        "topic": "mdl_dashboard",
+        "qos": "1",
+        "datatype": "auto",
+        "broker": "7710ba1174fb2d2f",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 120,
+        "y": 300,
+        "wires": [
+            [
+                "3dc2be7d73f5c349",
+                "98c108d047d72462",
+                "fb42c9ab74f00fa5",
+                "a8bffd0775d2ebb6"
+            ]
+        ]
+    },
+    {
+        "id": "7ff629cc0a0f4a9c",
+        "type": "mqtt out",
+        "z": "d9127fb3f435705f",
+        "name": "",
+        "topic": "",
+        "qos": "1",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "7710ba1174fb2d2f",
+        "x": 1070,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "d2f724c85415ecf9",
+        "type": "function",
+        "z": "d9127fb3f435705f",
+        "name": "",
+        "func": "msg.topic=\"mdl_dbinsert\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 880,
+        "y": 780,
+        "wires": [
+            [
+                "7ff629cc0a0f4a9c"
+            ]
         ]
     },
     {
@@ -857,7 +914,8 @@
         "y": 100,
         "wires": [
             [
-                "08bb35ad2af6153d"
+                "08bb35ad2af6153d",
+                "bd1801c165fab84c"
             ]
         ]
     },
@@ -871,7 +929,7 @@
         "createDir": false,
         "overwriteFile": "false",
         "encoding": "none",
-        "x": 900,
+        "x": 890,
         "y": 100,
         "wires": [
             []
@@ -887,7 +945,7 @@
         "continuous": false,
         "stdInData": false,
         "x": 460,
-        "y": 220,
+        "y": 340,
         "wires": [
             [
                 "d7947561a2e81287",
@@ -939,7 +997,7 @@
         "outputs": 0,
         "cts": false,
         "x": 1040,
-        "y": 280,
+        "y": 400,
         "wires": []
     },
     {
@@ -951,7 +1009,7 @@
         "action": "",
         "pretty": false,
         "x": 750,
-        "y": 280,
+        "y": 400,
         "wires": [
             [
                 "7f89b4174ea5a266"
@@ -971,7 +1029,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 1030,
-        "y": 220,
+        "y": 340,
         "wires": []
     },
     {
@@ -984,7 +1042,7 @@
         "continuous": false,
         "stdInData": false,
         "x": 460,
-        "y": 360,
+        "y": 480,
         "wires": [
             [
                 "712603b9e053d2dc",
@@ -1031,7 +1089,7 @@
         "useDifferentColor": false,
         "className": "",
         "x": 1100,
-        "y": 420,
+        "y": 540,
         "wires": [
             []
         ]
@@ -1049,7 +1107,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 1030,
-        "y": 360,
+        "y": 480,
         "wires": []
     },
     {
@@ -1061,7 +1119,7 @@
         "action": "",
         "pretty": false,
         "x": 750,
-        "y": 420,
+        "y": 540,
         "wires": [
             [
                 "4124515a394de079"
@@ -1078,7 +1136,7 @@
         "continuous": false,
         "stdInData": false,
         "x": 460,
-        "y": 500,
+        "y": 620,
         "wires": [
             [
                 "63865ec2c4500ddf",
@@ -1099,7 +1157,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 1030,
-        "y": 500,
+        "y": 620,
         "wires": []
     },
     {
@@ -1111,7 +1169,7 @@
         "action": "",
         "pretty": false,
         "x": 750,
-        "y": 560,
+        "y": 680,
         "wires": [
             [
                 "9ef25d344c9e1aa3"
@@ -1157,34 +1215,63 @@
         "useDifferentColor": false,
         "className": "",
         "x": 1070,
-        "y": 560,
+        "y": 680,
         "wires": [
             []
         ]
     },
     {
-        "id": "d8f31755d80d3c81",
-        "type": "inject",
+        "id": "bd1801c165fab84c",
+        "type": "function",
         "z": "f5df1688ce4528a9",
         "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
+        "func": "msg.topic = \"emby_dbinsert\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 780,
+        "y": 180,
+        "wires": [
+            [
+                "e332ba3d1ad3f04a"
+            ]
+        ]
+    },
+    {
+        "id": "e332ba3d1ad3f04a",
+        "type": "mqtt out",
+        "z": "f5df1688ce4528a9",
+        "name": "",
         "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 160,
-        "y": 360,
+        "qos": "1",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "7710ba1174fb2d2f",
+        "x": 1010,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "2c42d26cf9179be5",
+        "type": "mqtt in",
+        "z": "f5df1688ce4528a9",
+        "name": "",
+        "topic": "emby_dashboard",
+        "qos": "1",
+        "datatype": "auto",
+        "broker": "7710ba1174fb2d2f",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 180,
+        "y": 480,
         "wires": [
             [
                 "0ff34d5bc2cecb3c",
