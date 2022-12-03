@@ -513,10 +513,11 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "payload",
+        "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 860,
+        "x": 870,
         "y": 40,
         "wires": []
     },
@@ -529,7 +530,8 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "payload",
+        "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
         "x": 870,
@@ -545,7 +547,8 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "payload",
+        "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
         "x": 870,
@@ -561,7 +564,8 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "payload",
+        "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
         "x": 870,
@@ -712,12 +716,12 @@
         "id": "9f6aae76c3870412",
         "type": "pythonshell in",
         "z": "d9127fb3f435705f",
-        "name": "",
+        "name": "Daily Update",
         "pyfile": "/home/pi/.node-red/projects/NodeRedPythonMDL/python_scripts/mdl_psql_current.py",
         "virtualenv": "/home/pi/Development/mdlenv",
         "continuous": false,
         "stdInData": false,
-        "x": 540,
+        "x": 530,
         "y": 720,
         "wires": [
             [
@@ -732,11 +736,12 @@
         "z": "d9127fb3f435705f",
         "name": "",
         "filename": "/home/pi/Development/node-red_mdl.log",
+        "filenameType": "str",
         "appendNewline": true,
         "createDir": false,
         "overwriteFile": "false",
         "encoding": "none",
-        "x": 980,
+        "x": 1080,
         "y": 720,
         "wires": [
             []
@@ -778,7 +783,7 @@
         "id": "321a97fd5924f469",
         "type": "pythonshell in",
         "z": "d9127fb3f435705f",
-        "name": "",
+        "name": "Weekly Update",
         "pyfile": "/home/pi/.node-red/projects/NodeRedPythonMDL/python_scripts/mdl_psql_history.py",
         "virtualenv": "/home/pi/Development/mdlenv",
         "continuous": false,
@@ -798,11 +803,12 @@
         "z": "d9127fb3f435705f",
         "name": "",
         "filename": "/home/pi/Development/node-red_mdl.log",
+        "filenameType": "str",
         "appendNewline": true,
         "createDir": false,
         "overwriteFile": "false",
         "encoding": "none",
-        "x": 980,
+        "x": 1080,
         "y": 840,
         "wires": [
             []
@@ -813,7 +819,7 @@
         "type": "mqtt in",
         "z": "d9127fb3f435705f",
         "name": "",
-        "topic": "mdl_dashboard",
+        "topic": "mdl/dashboard",
         "qos": "1",
         "datatype": "auto",
         "broker": "7710ba1174fb2d2f",
@@ -855,7 +861,7 @@
         "type": "function",
         "z": "d9127fb3f435705f",
         "name": "",
-        "func": "msg.topic=\"mdl_dbinsert\";\nreturn msg;",
+        "func": "msg.topic=\"mdl/dbinsert\";\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -867,6 +873,53 @@
             [
                 "7ff629cc0a0f4a9c"
             ]
+        ]
+    },
+    {
+        "id": "4d1a44c76913a0bb",
+        "type": "cronplus",
+        "z": "d9127fb3f435705f",
+        "name": "",
+        "outputField": "payload",
+        "timeZone": "",
+        "persistDynamic": false,
+        "commandResponseMsgOutput": "output1",
+        "outputs": 1,
+        "options": [
+            {
+                "name": "schedule1",
+                "topic": "topic1",
+                "payloadType": "default",
+                "payload": "",
+                "expressionType": "cron",
+                "expression": "0 0 10 ? * SUN *",
+                "location": "",
+                "offset": "0",
+                "solarType": "all",
+                "solarEvents": "sunrise,sunset"
+            }
+        ],
+        "x": 140,
+        "y": 940,
+        "wires": [
+            [
+                "3ca3f5f5c424278b"
+            ]
+        ]
+    },
+    {
+        "id": "3ca3f5f5c424278b",
+        "type": "pythonshell in",
+        "z": "d9127fb3f435705f",
+        "name": "Record Correction",
+        "pyfile": "/home/pi/.node-red/projects/NodeRedPythonMDL/python_scripts/python_scripts/mdl_invalid_record_update.py.py",
+        "virtualenv": "/home/pi/Development/mdlenv",
+        "continuous": false,
+        "stdInData": false,
+        "x": 550,
+        "y": 940,
+        "wires": [
+            []
         ]
     },
     {
@@ -893,7 +946,7 @@
                 "solarEvents": "sunrise,sunset"
             }
         ],
-        "x": 160,
+        "x": 180,
         "y": 100,
         "wires": [
             [
@@ -910,7 +963,7 @@
         "virtualenv": "/home/pi/Development/mdlenv",
         "continuous": false,
         "stdInData": false,
-        "x": 460,
+        "x": 480,
         "y": 100,
         "wires": [
             [
@@ -925,11 +978,12 @@
         "z": "f5df1688ce4528a9",
         "name": "",
         "filename": "/home/pi/Development/node-red_emby.log",
+        "filenameType": "str",
         "appendNewline": true,
         "createDir": false,
         "overwriteFile": "false",
         "encoding": "none",
-        "x": 890,
+        "x": 1020,
         "y": 100,
         "wires": [
             []
@@ -1025,7 +1079,8 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "payload",
+        "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
         "x": 1030,
@@ -1103,7 +1158,8 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "payload",
+        "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
         "x": 1030,
@@ -1153,7 +1209,8 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "payload",
+        "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
         "x": 1030,
@@ -1225,13 +1282,13 @@
         "type": "function",
         "z": "f5df1688ce4528a9",
         "name": "",
-        "func": "msg.topic = \"emby_dbinsert\";\nreturn msg;",
+        "func": "msg.topic = \"emby/dbinsert\";\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 780,
+        "x": 800,
         "y": 180,
         "wires": [
             [
@@ -1253,7 +1310,7 @@
         "correl": "",
         "expiry": "",
         "broker": "7710ba1174fb2d2f",
-        "x": 1010,
+        "x": 1030,
         "y": 180,
         "wires": []
     },
@@ -1262,7 +1319,7 @@
         "type": "mqtt in",
         "z": "f5df1688ce4528a9",
         "name": "",
-        "topic": "emby_dashboard",
+        "topic": "emby/dashboard",
         "qos": "1",
         "datatype": "auto",
         "broker": "7710ba1174fb2d2f",
