@@ -912,15 +912,34 @@
         "type": "pythonshell in",
         "z": "d9127fb3f435705f",
         "name": "Record Correction",
-        "pyfile": "/home/pi/.node-red/projects/NodeRedPythonMDL/python_scripts/python_scripts/mdl_invalid_record_update.py.py",
+        "pyfile": "/home/pi/.node-red/projects/NodeRedPythonMDL/python_scripts/mdl_invalid_record_update.py",
         "virtualenv": "/home/pi/Development/mdlenv",
         "continuous": false,
         "stdInData": false,
         "x": 550,
         "y": 940,
         "wires": [
-            []
+            [
+                "752580a06edef092"
+            ]
         ]
+    },
+    {
+        "id": "752580a06edef092",
+        "type": "debug",
+        "z": "d9127fb3f435705f",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 890,
+        "y": 940,
+        "wires": []
     },
     {
         "id": "f2de40939f4a4500",
