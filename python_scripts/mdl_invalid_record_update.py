@@ -2,6 +2,7 @@ import requests
 import psycopg2
 import pandas as pd
 import pandas.io.sql as sqlio
+from datetime import datetime
 
 
 try:
@@ -30,7 +31,8 @@ try:
 		set 
 			ranking = 99999, 
 			released_at = '2099-12-31', 
-			rating = 0 
+			rating = 0, 
+			"update_ts" = '{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}'
 		where 
 			id in ({','.join(id_list)});
 		'''
