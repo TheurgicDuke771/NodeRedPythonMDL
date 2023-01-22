@@ -32,7 +32,7 @@ try:
 			ranking = 99999, 
 			released_at = '2099-12-31', 
 			rating = 0, 
-			"update_ts" = '{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}'
+			update_ts = '{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}'
 		where 
 			id in ({','.join(id_list)});
 		'''
