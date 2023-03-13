@@ -1,19 +1,23 @@
+import os
 import json
 import psycopg2
 import requests
 from datetime import datetime
+from dotenv import load_dotenv
 
+
+load_dotenv()
 
 print(datetime.now(), " [LOG]:")
-emby_ip = "http://localhost:8096"
+emby_ip = os.getenv('EMBY_IP')
 
 auth_url = f"{emby_ip}/Users/AuthenticateByName"
 payload = json.dumps({
- "Username": "emby",
- "pw": "pass@emby"
+ "Username": os.getenv('EMBY_USER_NAME'),
+ "pw": os.getenv('EMBY_PASSWORD')
 })
 headers = {
-	'Authorization': 'Emby UserId="07150098e0034bbb9c6ecdedc4d129d2",Client="Python", Device="Raspberry Pi 4B", DeviceId="xxx", Version="3.9"',
+	'Authorization': f'''Emby UserId="{os.getenv('EMBY_USER_ID')}",Client="Python", Device="Raspberry Pi 4B", DeviceId="xxx", Version="3.9"''',
 	'Content-Type': 'application/json'
 }
 auth_response = requests.request("POST", auth_url, headers=headers, data=payload)
@@ -35,11 +39,11 @@ try:
 		raise Exception('No records present')
 	
 	conn = psycopg2.connect(
-		user="postgres", 
-		password="postgres", 
-		host="localhost", 
-		port="5432",
-		dbname="EmbyReporting")
+		user=os.getenv('PG_USER'), 
+		password=os.getenv('PG_PASSWORD'), 
+		host=os.getenv('PG_HOST'), 
+		port=os.getenv('PG_PORT'),
+		dbname=os.getenv('EMBY_DB_NAME'))
 
 	print('\tConnected to DB EmbyReporting')
 

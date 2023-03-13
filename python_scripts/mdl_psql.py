@@ -1,16 +1,22 @@
+import os
+import json
+import requests
 import psycopg2
 from datetime import datetime
+from dotenv import load_dotenv
 
+
+load_dotenv()
 
 def inset_into_db(content_list:list) -> int:
 	now = datetime.now()
 	try:
 		conn = psycopg2.connect(
-			user="postgres", 
-			password="postgres", 
-			host="localhost", 
-			port="5432",
-			dbname="MyDramaList")
+			user=os.getenv('PG_USER'), 
+			password=os.getenv('PG_PASSWORD'), 
+			host=os.getenv('PG_HOST'), 
+			port=os.getenv('PG_PORT'),
+			dbname=os.getenv('MDL_DB_NAME'))
 
 		cur = conn.cursor()
 
@@ -45,7 +51,10 @@ def inset_into_db(content_list:list) -> int:
 			except:
 				raise Exception("Type Not Found")
 			try:
-				synopsis = item['synopsis'].replace("'", "''")
+				details_url = f"https://kuryana.vercel.app/id{item['url']}"
+				response = requests.request("GET", details_url).json()
+				synopsis_str = str(response['data']['synopsis'])
+				synopsis = synopsis_str.replace("'", "''") if synopsis_str != '' else 'No synopsis available'
 			except:
 				synopsis = 'No synopsis available'
 			try:
@@ -53,7 +62,7 @@ def inset_into_db(content_list:list) -> int:
 				released_at = item['released_at']
 			except:
 				released_at = '2099-12-31'
-			url = "https://mydramalist.com"+item['url']
+			url = f"https://mydramalist.com{item['url']}"
 			genres = item['genres']
 			thumbnail = item['thumbnail']
 			cover = item['cover']

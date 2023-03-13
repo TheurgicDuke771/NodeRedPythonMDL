@@ -1,17 +1,21 @@
+import os
 import requests
 import psycopg2
 import pandas as pd
 import pandas.io.sql as sqlio
 from datetime import datetime
+from dotenv import load_dotenv
 
+
+load_dotenv()
 
 try:
 	conn = psycopg2.connect(
-		user="postgres", 
-		password="postgres", 
-		host="localhost", 
-		port="5432",
-		dbname="MyDramaList"
+		user=os.getenv('PG_USER'), 
+		password=os.getenv('PG_PASSWORD'), 
+		host=os.getenv('PG_HOST'), 
+		port=os.getenv('PG_PORT'),
+		dbname=os.getenv('MDL_DB_NAME')
 	)
 	cur = conn.cursor()
 	

@@ -1,15 +1,19 @@
+import os
 import json
 import psycopg2
 import pandas as pd
+from dotenv import load_dotenv
 
+
+load_dotenv()
 
 try:	
 	conn = psycopg2.connect(
-		user="postgres", 
-		password="postgres", 
-		host="localhost", 
-		port="5432",
-		dbname="EmbyReporting")
+		user=os.getenv('PG_USER'), 
+		password=os.getenv('PG_PASSWORD'), 
+		host=os.getenv('PG_HOST'), 
+		port=os.getenv('PG_PORT'),
+		dbname=os.getenv('EMBY_DB_NAME'))
 
 	cur = conn.cursor()
 	fetch_query = '''
