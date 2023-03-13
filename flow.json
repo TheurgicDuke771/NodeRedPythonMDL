@@ -892,7 +892,7 @@
                 "payloadType": "default",
                 "payload": "",
                 "expressionType": "cron",
-                "expression": "0 0 10 ? * SUN *",
+                "expression": "0 0 15 ? * SUN *",
                 "location": "",
                 "offset": "0",
                 "solarType": "all",
