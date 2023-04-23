@@ -105,7 +105,8 @@ def inset_into_db(content_list:list) -> int:
 				conn.commit()
 				affected_rec_cnt += 1
 			else:
-				if result['synopsis'].values[0] == 'No synopsis available':
+				existing_synopsis = result['synopsis'].values[0]
+				if (existing_synopsis == 'No synopsis available') or (existing_synopsis[-3:] == '...'):
 					try:
 						synopsis = get_synopsis(item_url=item['url'])
 					except:
