@@ -54,13 +54,13 @@ try:
 	print('\tCleared Table PlaybackActivity')
 
 	for rec in qry_result:
-		if len(rec) != 10:
+		if len(rec) != 11:
 			raise Exception('Data missing in record')
 		
 		insert_query = f'''
 		INSERT INTO playbackactivity ("{joined_cols}") 
 		VALUES 
-		('{rec[0]}', '{rec[1]}', {rec[2]}, '{rec[3]}','{rec[4].replace("'", "''")}', '{rec[5]}', '{rec[6]}', '{rec[7].replace("'", "''")}',{rec[8]}, {rec[9]})
+		('{rec[0]}', '{rec[1]}', {rec[2]}, '{rec[3]}', '{rec[4].replace("'", "''")}', '{rec[5]}', '{rec[6]}', '{rec[7].replace("'", "''")}', {rec[8]}, {rec[9]}, '{rec[10]}')
 		'''
 		cur.execute(insert_query)
 		conn.commit()
