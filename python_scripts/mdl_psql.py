@@ -38,7 +38,10 @@ def inset_into_db(content_list:list) -> int:
 				id = item['id']
 			except:
 				raise Exception("ID Not Found")
-			title = item['title'].replace("'", "''")
+			try:
+				title = item['title'].replace("'", "''")
+			except:
+				title = 'No working Title'
 			try:
 				episodes = item['episodes']
 			except:
@@ -160,6 +163,7 @@ def inset_into_db(content_list:list) -> int:
 
 	except Exception as e:
 		print(e)
+  		return affected_rec_cnt
 
 	finally:
 		cur.close()
