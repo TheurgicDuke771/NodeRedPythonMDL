@@ -1,15 +1,11 @@
-import os
-import json
-import requests
-import psycopg2
 import warnings
-import pandas as pd
 from datetime import datetime
-from dotenv import load_dotenv
+import requests
+import pandas as pd
+from db_connection import get_db_connection
 
 
 warnings.filterwarnings("ignore")
-load_dotenv()
 
 
 def get_synopsis(item_url: str) -> str:
@@ -24,14 +20,7 @@ def inset_into_db(content_list: list) -> int:
     affected_rec_cnt = 0
     now = datetime.now()
     try:
-        conn = psycopg2.connect(
-            user=os.getenv("PG_USER"),
-            password=os.getenv("PG_PASSWORD"),
-            host=os.getenv("PG_HOST"),
-            port=os.getenv("PG_PORT"),
-            dbname=os.getenv("MDL_DB_NAME"),
-        )
-
+        conn = get_db_connection(system_name="MDL")
         cur = conn.cursor()
 
         for item in content_list:

@@ -1,22 +1,11 @@
-import os
-import requests
-import psycopg2
-import pandas as pd
-import pandas.io.sql as sqlio
 from datetime import datetime
-from dotenv import load_dotenv
+import requests
+import pandas.io.sql as sqlio
+from db_connection import get_db_connection
 
-
-load_dotenv()
 
 try:
-    conn = psycopg2.connect(
-        user=os.getenv("PG_USER"),
-        password=os.getenv("PG_PASSWORD"),
-        host=os.getenv("PG_HOST"),
-        port=os.getenv("PG_PORT"),
-        dbname=os.getenv("MDL_DB_NAME"),
-    )
+    conn = get_db_connection(system_name="MDL")
     cur = conn.cursor()
 
     fetch_query = "select * from public.tv where DATE_PART('day', localtimestamp(0) - update_ts) > 30;"

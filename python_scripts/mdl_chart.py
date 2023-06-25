@@ -1,20 +1,9 @@
 import json
-import cloudscraper
 import pandas as pd
-from datetime import datetime
+from mdl_seasonal_data import get_seasonal_data
 
 
-now = datetime.now()
-current_year = now.year
-current_quarter = ((now.month - 1) // 3) + 1
-
-scraper = cloudscraper.create_scraper()
-
-seasonal = scraper.post(
-    url="https://mydramalist.com/v1/quarter_calendar",
-    data={"quarter": current_quarter, "year": current_year},
-).json()
-
+seasonal = get_seasonal_data()
 df = pd.DataFrame(seasonal)
 
 top_hundred = df[df["type"] != "Movie"].sort_values(by=["ranking"]).head(100).reset_index()
@@ -25,4 +14,3 @@ chart = [
 ]
 
 print(json.dumps(chart))
-scraper.close()

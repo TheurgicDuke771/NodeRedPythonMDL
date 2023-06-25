@@ -1,9 +1,9 @@
 import os
 import json
-import psycopg2
-import requests
 from datetime import datetime
+import requests
 from dotenv import load_dotenv
+from db_connection import get_db_connection
 
 
 load_dotenv()
@@ -35,13 +35,7 @@ try:
     if len(qry_result) == 0:
         raise Exception("No records present")
 
-    conn = psycopg2.connect(
-        user=os.getenv("PG_USER"),
-        password=os.getenv("PG_PASSWORD"),
-        host=os.getenv("PG_HOST"),
-        port=os.getenv("PG_PORT"),
-        dbname=os.getenv("EMBY_DB_NAME"),
-    )
+    conn = get_db_connection(system_name="EMBY")
 
     print("\tConnected to DB EmbyReporting")
 
