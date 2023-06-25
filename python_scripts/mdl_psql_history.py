@@ -1,6 +1,6 @@
-import cloudscraper
 from datetime import datetime
-from .mdl_psql import inset_into_db
+import cloudscraper
+from mdl_psql import inset_into_db
 
 
 now = datetime.now()
