@@ -82,16 +82,17 @@ def inset_into_db(content_list: list) -> int:
                     synopsis = "No synopsis available"
                 insert_query = f"""
                 INSERT INTO {table_name} 
-                ("id", "title", "episodes", "ranking", "popularity",
+                ("id", "title", "episodes", "ranking", 
+                "best_ranking", "popularity", "best_popularity", 
                 "country", "content_type", "type", "synopsis",
                 "released_at", "url", "genres", "thumbnail",
-                "cover", "rating", "insert_ts", "update_ts") 
+                "cover", "rating", "best_rating", "insert_ts", "update_ts") 
                 VALUES 
-                ({id}, '{title}', {episodes}, {ranking}, {popularity},
-                '{country}', '{content_type}', '{c_type}', '{synopsis}',
-                '{released_at}', '{url}', '{genres}', '{thumbnail}',
-                '{cover}', {rating}, '{now.strftime("%Y-%m-%d %H:%M:%S")}',
-                '{now.strftime("%Y-%m-%d %H:%M:%S")}');
+                ({id}, '{title}', {episodes}, {ranking}, {ranking},
+                {popularity}, {popularity}, '{country}', '{content_type}',
+                '{c_type}', '{synopsis}', '{released_at}', '{url}', '{genres}',
+                '{thumbnail}', '{cover}', {rating}, {rating},
+                '{now.strftime("%Y-%m-%d %H:%M:%S")}', '{now.strftime("%Y-%m-%d %H:%M:%S")}');
                 """
 
                 cur.execute(insert_query)
@@ -109,7 +110,9 @@ def inset_into_db(content_list: list) -> int:
                     "title" = '{title}',
                     "episodes" = {episodes}, 
                     "ranking" = {ranking}, 
+                    "best_ranking" = case when ("best_ranking" > {ranking}) then {ranking} else "best_ranking" end,
                     "popularity" = {popularity}, 
+                    "best_popularity" = case when ("best_popularity" > {popularity}) then {popularity} else "best_popularity" end,
                     "country" = '{country}',
                     "content_type" = '{content_type}', 
                     "type" = '{c_type}',
@@ -120,6 +123,7 @@ def inset_into_db(content_list: list) -> int:
                     "thumbnail" = '{thumbnail}', 
                     "cover" = '{cover}', 
                     "rating" = {rating}, 
+                    "best_rating" = case when ("best_rating" < {rating}) then {rating} else "best_rating" end,
                     "update_ts" = '{now.strftime("%Y-%m-%d %H:%M:%S")}'
                     WHERE "id" = {id};
                     """
@@ -132,7 +136,9 @@ def inset_into_db(content_list: list) -> int:
                     "title" = '{title}',
                     "episodes" = {episodes}, 
                     "ranking" = {ranking}, 
+                    "best_ranking" = case when ("best_ranking" > {ranking}) then {ranking} else "best_ranking" end,
                     "popularity" = {popularity}, 
+                    "best_popularity" = case when ("best_popularity" > {popularity}) then {popularity} else "best_popularity" end,
                     "country" = '{country}',
                     "content_type" = '{content_type}', 
                     "type" = '{c_type}',
@@ -142,6 +148,7 @@ def inset_into_db(content_list: list) -> int:
                     "thumbnail" = '{thumbnail}', 
                     "cover" = '{cover}', 
                     "rating" = {rating}, 
+                    "best_rating" = case when ("best_rating" < {rating}) then {rating} else "best_rating" end,
                     "update_ts" = '{now.strftime("%Y-%m-%d %H:%M:%S")}'
                     WHERE "id" = {id};
                     """
@@ -152,7 +159,7 @@ def inset_into_db(content_list: list) -> int:
         return affected_rec_cnt
 
     except Exception as e:
-        print(e)
+        print(f"ERROR: {str(e)}")
         return affected_rec_cnt
 
     finally:

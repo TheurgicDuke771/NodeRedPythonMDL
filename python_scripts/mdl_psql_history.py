@@ -29,4 +29,4 @@ for year in range(2022, current_year + 1):
 
 scraper.close()
 rec_count = inset_into_db(mdl_list)
-print(f'{rec_count} records inserted at {now.strftime("%Y-%m-%d %H:%M:%S")}.')
+print(f'INFO: {rec_count} records inserted at {now.strftime("%Y-%m-%d %H:%M:%S")}.')
