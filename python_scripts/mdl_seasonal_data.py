@@ -16,7 +16,7 @@ def get_seasonal_data() -> list:
 
         return seasonal
     except Exception as e:
-        print(f"Got error while fetching API data. {str(e)}")
+        print(f"{datetime.now()} ERROR: Got error while fetching API data. {str(e)}")
         return []
     finally:
         scraper.close()

@@ -920,7 +920,8 @@
         "y": 940,
         "wires": [
             [
-                "752580a06edef092"
+                "752580a06edef092",
+                "545a36db7207deb9"
             ]
         ]
     },
@@ -940,6 +941,23 @@
         "x": 890,
         "y": 940,
         "wires": []
+    },
+    {
+        "id": "545a36db7207deb9",
+        "type": "file",
+        "z": "d9127fb3f435705f",
+        "name": "",
+        "filename": "/home/pi/Development/node-red_mdl.log",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 980,
+        "y": 1020,
+        "wires": [
+            []
+        ]
     },
     {
         "id": "f2de40939f4a4500",

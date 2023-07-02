@@ -10,10 +10,14 @@ warnings.filterwarnings("ignore")
 
 def get_synopsis(item_url: str) -> str:
     details_url = f"https://kuryana.vercel.app/id{item_url}"
-    response = requests.request("GET", details_url).json()
-    synopsis_str = str(response["data"]["synopsis"])
-    synopsis = synopsis_str.replace("'", "''") if synopsis_str != "" else "No synopsis available"
-    return synopsis
+    try:
+        response = requests.request("GET", details_url).json()
+        synopsis_str = str(response["data"]["synopsis"])
+        synopsis = synopsis_str.replace("'", "''") if synopsis_str != "" else "No synopsis available"
+        return synopsis
+    except Exception as e:
+        print(f"{datetime.now()} ERROR: {str(e)}")
+        return "No synopsis available"
 
 
 def inset_into_db(content_list: list) -> int:
@@ -159,7 +163,7 @@ def inset_into_db(content_list: list) -> int:
         return affected_rec_cnt
 
     except Exception as e:
-        print(f"ERROR: {str(e)}")
+        print(f"{datetime.now()} ERROR: {str(e)}")
         return affected_rec_cnt
 
     finally:

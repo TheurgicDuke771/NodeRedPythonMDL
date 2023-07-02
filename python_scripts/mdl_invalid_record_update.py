@@ -10,7 +10,7 @@ try:
 
     fetch_query = "select * from public.tv where DATE_PART('day', localtimestamp(0) - update_ts) > 30;"
     df = sqlio.read_sql_query(fetch_query, conn)
-    print(f"Fetched {len(df)} records")
+    print(f"{datetime.now()} INFO: Fetched {len(df)} records")
 
     id_list = []
     for index, row in df.iterrows():
@@ -31,12 +31,12 @@ try:
         """
         cur.execute(update_query)
         conn.commit()
-        print(f"{len(id_list)} records are updated")
+        print(f"{datetime.now()} INFO: {len(id_list)} records are updated")
     else:
-        print("No record to update")
+        print(f"{datetime.now()} INFO: No record to update")
 
 except Exception as e:
-    print(str(e))
+    print(f"{datetime.now()} ERROR: {str(e)}")
 
 finally:
     cur.close()
