@@ -104,7 +104,11 @@ def inset_into_db(content_list: list) -> int:
                 affected_rec_cnt += 1
             else:
                 existing_synopsis = result["synopsis"].values[0]
-                if (existing_synopsis == "No synopsis available") or (existing_synopsis[-3:] == "..."):
+                if (
+                    (existing_synopsis == "No synopsis available")
+                    or (existing_synopsis[-3:] == "...")
+                    or (existing_synopsis == "Remove ads")
+                ):
                     try:
                         synopsis = get_synopsis(item_url=item["url"])
                     except:
