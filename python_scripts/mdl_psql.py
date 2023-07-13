@@ -11,10 +11,14 @@ warnings.filterwarnings("ignore")
 def get_synopsis(item_url: str) -> str:
     details_url = f"https://kuryana.vercel.app/id{item_url}"
     try:
-        response = requests.request("GET", details_url).json()
-        synopsis_str = str(response["data"]["synopsis"])
-        synopsis = synopsis_str.replace("'", "''") if synopsis_str != "" else "No synopsis available"
-        return synopsis
+        response_raw = requests.request("GET", details_url)
+        if response_raw.status_code == 200:
+            response = response_raw.json()
+            synopsis_str = str(response["data"]["synopsis"])
+            synopsis = synopsis_str.replace("'", "''") if synopsis_str != "" else "No synopsis available"
+            return synopsis
+        else:
+            raise Exception(f"URL: {details_url}. Response: {response_raw.text}")
     except Exception as e:
         print(f"{datetime.now()} ERROR: {str(e)}")
         return "No synopsis available"
@@ -65,10 +69,22 @@ def inset_into_db(content_list: list) -> int:
                 released_at = item["released_at"]
             except:
                 released_at = "2099-12-31"
-            url = f"https://mydramalist.com{item['url']}"
-            genres = item["genres"]
-            thumbnail = item["thumbnail"]
-            cover = item["cover"]
+            try:
+                url = f"https://mydramalist.com{item['url']}"
+            except:
+                raise Exception("No URL Found")
+            try:
+                genres = item["genres"]
+            except:
+                genres = "Dfault"
+            try:
+                thumbnail = item["thumbnail"]
+            except:
+                thumbnail = "https://i.mydramalist.com/_4t.jpg"
+            try:
+                cover = item["cover"]
+            except:
+                cover = "https://i.mydramalist.com/_4c.jpg"
             try:
                 rating = item["rating"]
             except:

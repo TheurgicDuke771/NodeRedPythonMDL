@@ -10,23 +10,29 @@ mdl_list = []
 
 try:
     scraper = cloudscraper.create_scraper()
-    for year in range(2022, current_year + 1):
+    for year in range((current_year - 2), (current_year + 1)):
         if year == current_year:
             for q in range(1, current_quarter + 1):
                 current_seasonal = scraper.post(
                     url="https://mydramalist.com/v1/quarter_calendar",
                     data={"quarter": q, "year": year},
                 )
-                temp_list = current_seasonal.json()
-                mdl_list.extend(temp_list)
+                if current_seasonal.status_code == 200:
+                    temp_list = current_seasonal.json()
+                    mdl_list.extend(temp_list)
+                else:
+                    raise Exception(f"URL: {current_seasonal.url}. Response: {current_seasonal.text}")
         else:
             for q in range(1, 5):
                 history_seasonal = scraper.post(
                     url="https://mydramalist.com/v1/quarter_calendar",
                     data={"quarter": q, "year": year},
                 )
-                temp_list = history_seasonal.json()
-                mdl_list.extend(temp_list)
+                if history_seasonal.status_code == 200:
+                    temp_list = history_seasonal.json()
+                    mdl_list.extend(temp_list)
+                else:
+                    raise Exception(f"URL: {history_seasonal.url}. Response: {history_seasonal.text}")
 except Exception as e:
     print(f"{datetime.now()} ERROR: {str(e)}")
 finally:

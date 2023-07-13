@@ -9,12 +9,14 @@ def get_seasonal_data() -> list:
         current_quarter = ((now.month - 1) // 3) + 1
 
         scraper = cloudscraper.create_scraper()
-        seasonal = scraper.post(
+        seasonal_raw = scraper.post(
             url="https://mydramalist.com/v1/quarter_calendar",
             data={"quarter": current_quarter, "year": current_year},
-        ).json()
-
-        return seasonal
+        )
+        if seasonal_raw.status_code == 200:
+            return seasonal_raw.json()
+        else:
+            raise Exception(f"URL: {seasonal_raw.url}. Response: {seasonal_raw.text}")
     except Exception as e:
         print(f"{datetime.now()} ERROR: Got error while fetching API data. {str(e)}")
         return []
