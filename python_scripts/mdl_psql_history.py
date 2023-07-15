@@ -41,6 +41,6 @@ finally:
 
 if len(mdl_list) > 0:
     rec_count = inset_into_db(mdl_list)
-    print(f'{ETL_TIME} INFO: {rec_count} records inserted at {ETL_TIME}.')
+    print(f"{ETL_TIME} INFO: {rec_count} records inserted.")
 else:
     print(f"{ETL_TIME} INFO: No records to insert")

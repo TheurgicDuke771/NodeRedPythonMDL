@@ -21,7 +21,7 @@ def get_synopsis(item_url: str) -> str:
         else:
             raise Exception(f"URL: {details_url}. Response: {response_raw.text}")
     except Exception as e:
-        print(f"{ETL_TIME} ERROR: {str(e)}")
+        print(f"{ETL_TIME} WARNING: {str(e)}")
         return "No synopsis available"
 
 
@@ -120,6 +120,7 @@ def inset_into_db(content_list: list) -> int:
                     cur.execute(insert_query)
                     conn.commit()
                     affected_rec_cnt += 1
+
                 else:
                     existing_synopsis = result["synopsis"].values[0]
                     if (
@@ -157,6 +158,7 @@ def inset_into_db(content_list: list) -> int:
                         cur.execute(update_query)
                         conn.commit()
                         affected_rec_cnt += 1
+
                     else:
                         update_query = f"""
                         UPDATE {table_name} SET 
@@ -183,7 +185,7 @@ def inset_into_db(content_list: list) -> int:
                         conn.commit()
                         affected_rec_cnt += 1
             except Exception as e:
-                print(f"{ETL_TIME} ERROR: {str(e)}")
+                print(f"{ETL_TIME} WARNING: {str(e)}")
 
         return affected_rec_cnt
 
