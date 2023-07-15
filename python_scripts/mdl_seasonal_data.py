@@ -2,6 +2,9 @@ from datetime import datetime
 import cloudscraper
 
 
+ETL_TIME = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+
 def get_seasonal_data() -> list:
     try:
         now = datetime.now()
@@ -18,7 +21,7 @@ def get_seasonal_data() -> list:
         else:
             raise Exception(f"URL: {seasonal_raw.url}. Response: {seasonal_raw.text}")
     except Exception as e:
-        print(f"{datetime.now()} ERROR: Got error while fetching API data. {str(e)}")
+        print(f"{ETL_TIME} ERROR: Got error while fetching API data. {str(e)}")
         return []
     finally:
         scraper.close()

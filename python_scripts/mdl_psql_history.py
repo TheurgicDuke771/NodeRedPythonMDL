@@ -7,6 +7,7 @@ now = datetime.now()
 current_year = now.year
 current_quarter = ((now.month - 1) // 3) + 1
 mdl_list = []
+ETL_TIME = now.strftime("%Y-%m-%d %H:%M:%S")
 
 try:
     scraper = cloudscraper.create_scraper()
@@ -34,12 +35,12 @@ try:
                 else:
                     raise Exception(f"URL: {history_seasonal.url}. Response: {history_seasonal.text}")
 except Exception as e:
-    print(f"{datetime.now()} ERROR: {str(e)}")
+    print(f"{ETL_TIME} ERROR: {str(e)}")
 finally:
     scraper.close()
 
 if len(mdl_list) > 0:
     rec_count = inset_into_db(mdl_list)
-    print(f'{datetime.now()} INFO: {rec_count} records inserted at {now.strftime("%Y-%m-%d %H:%M:%S")}.')
+    print(f'{ETL_TIME} INFO: {rec_count} records inserted at {ETL_TIME}.')
 else:
-    print(f"{datetime.now()} INFO: No records to insert")
+    print(f"{ETL_TIME} INFO: No records to insert")

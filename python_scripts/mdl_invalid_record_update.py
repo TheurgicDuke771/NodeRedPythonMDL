@@ -4,13 +4,15 @@ import pandas.io.sql as sqlio
 from db_connection import get_db_connection
 
 
+ETL_TIME = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
 try:
     conn = get_db_connection(system_name="MDL")
     cur = conn.cursor()
 
     fetch_query = "select * from public.tv where DATE_PART('day', localtimestamp(0) - update_ts) > 30;"
     df = sqlio.read_sql_query(fetch_query, conn)
-    print(f"{datetime.now()} INFO: Fetched {len(df)} records")
+    print(f"{ETL_TIME} INFO: Fetched {len(df)} records")
 
     id_list = []
     for index, row in df.iterrows():
@@ -25,18 +27,18 @@ try:
             ranking = 99999, 
             released_at = '2099-12-31', 
             rating = 0, 
-            update_ts = '{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}'
+            update_ts = '{ETL_TIME}'
         where 
             id in ({','.join(id_list)});
         """
         cur.execute(update_query)
         conn.commit()
-        print(f"{datetime.now()} INFO: {len(id_list)} records are updated")
+        print(f"{ETL_TIME} INFO: {len(id_list)} records are updated")
     else:
-        print(f"{datetime.now()} INFO: No record to update")
+        print(f"{ETL_TIME} INFO: No record to update")
 
 except Exception as e:
-    print(f"{datetime.now()} ERROR: {str(e)}")
+    print(f"{ETL_TIME} ERROR: {str(e)}")
 
 finally:
     cur.close()
