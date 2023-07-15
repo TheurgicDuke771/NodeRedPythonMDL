@@ -35,7 +35,7 @@ def inset_into_db(content_list: list) -> int:
         for item in content_list:
             try:
                 try:
-                    id = item["id"]
+                    item_id = item["id"]
                 except:
                     raise Exception(f"ID Not Found. {item}")
                 try:
@@ -63,7 +63,7 @@ def inset_into_db(content_list: list) -> int:
                 except:
                     content_type = "Content Type Not Found"
                 try:
-                    c_type = item["type"]
+                    item_type = item["type"]
                 except:
                     raise Exception(f"Type Not Found. {item}")
                 try:
@@ -92,9 +92,9 @@ def inset_into_db(content_list: list) -> int:
                 except:
                     rating = 99999
 
-                table_name = "movie" if c_type == "Movie" else "tv"
+                table_name = "movie" if item_type == "Movie" else "tv"
 
-                fetch_query = f'SELECT * FROM {table_name} WHERE "id" = {id};'
+                fetch_query = f'SELECT * FROM {table_name} WHERE "id" = {item_id};'
                 result = pd.read_sql(fetch_query, conn)
 
                 if len(result) == 0:
@@ -111,9 +111,9 @@ def inset_into_db(content_list: list) -> int:
                     "released_at", "url", "genres", "thumbnail",
                     "cover", "rating", "best_rating", "insert_ts", "update_ts") 
                     VALUES 
-                    ({id}, '{title}', {episodes}, {ranking}, {ranking},
+                    ({item_id}, '{title}', {episodes}, {ranking}, {ranking},
                     {popularity}, {popularity}, '{country}', '{content_type}',
-                    '{c_type}', '{synopsis}', '{released_at}', '{url}', '{genres}',
+                    '{item_type}', '{synopsis}', '{released_at}', '{url}', '{genres}',
                     '{thumbnail}', '{cover}', {rating}, {rating}, '{ETL_TIME}', '{ETL_TIME}');
                     """
 
@@ -143,7 +143,7 @@ def inset_into_db(content_list: list) -> int:
                         "best_popularity" = case when ("best_popularity" > {popularity}) then {popularity} else "best_popularity" end,
                         "country" = '{country}',
                         "content_type" = '{content_type}', 
-                        "type" = '{c_type}',
+                        "type" = '{item_type}',
                         "synopsis" = '{synopsis}', 
                         "released_at" = '{released_at}', 
                         "url" = '{url}', 
@@ -153,7 +153,7 @@ def inset_into_db(content_list: list) -> int:
                         "rating" = {rating}, 
                         "best_rating" = case when ("best_rating" < {rating}) then {rating} else "best_rating" end,
                         "update_ts" = '{ETL_TIME}'
-                        WHERE "id" = {id};
+                        WHERE "id" = {item_id};
                         """
                         cur.execute(update_query)
                         conn.commit()
@@ -170,7 +170,7 @@ def inset_into_db(content_list: list) -> int:
                         "best_popularity" = case when ("best_popularity" > {popularity}) then {popularity} else "best_popularity" end,
                         "country" = '{country}',
                         "content_type" = '{content_type}', 
-                        "type" = '{c_type}',
+                        "type" = '{item_type}',
                         "released_at" = '{released_at}', 
                         "url" = '{url}', 
                         "genres" = '{genres}', 
@@ -179,7 +179,7 @@ def inset_into_db(content_list: list) -> int:
                         "rating" = {rating}, 
                         "best_rating" = case when ("best_rating" < {rating}) then {rating} else "best_rating" end,
                         "update_ts" = '{ETL_TIME}'
-                        WHERE "id" = {id};
+                        WHERE "id" = {item_id};
                         """
                         cur.execute(update_query)
                         conn.commit()
