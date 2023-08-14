@@ -92,7 +92,12 @@ def inset_into_db(content_list: list) -> int:
                 except:
                     rating = 99999
 
-                table_name = "movie" if item_type == "Movie" else "tv"
+                if item_type == "Movie":
+                    table_name = "movie" 
+                elif (item_type == "Drama") or (item_type == "Special"):
+                    table_name = "drama" 
+                else:
+                    table_name = "tv"
 
                 fetch_query = f'SELECT * FROM {table_name} WHERE "id" = {item_id};'
                 result = pd.read_sql(fetch_query, conn)
@@ -107,7 +112,7 @@ def inset_into_db(content_list: list) -> int:
                     INSERT INTO {table_name} 
                     ("id", "title", "episodes", "ranking", 
                     "best_ranking", "popularity", "best_popularity", 
-                    "country", "content_type", "type", "synopsis",
+                    "country", "content_type", "record_type", "synopsis",
                     "released_at", "url", "genres", "thumbnail",
                     "cover", "rating", "best_rating", "insert_ts", "update_ts") 
                     VALUES 
@@ -143,7 +148,7 @@ def inset_into_db(content_list: list) -> int:
                         "best_popularity" = case when ("best_popularity" > {popularity}) then {popularity} else "best_popularity" end,
                         "country" = '{country}',
                         "content_type" = '{content_type}', 
-                        "type" = '{item_type}',
+                        "record_type" = '{item_type}',
                         "synopsis" = '{synopsis}', 
                         "released_at" = '{released_at}', 
                         "url" = '{url}', 
@@ -170,7 +175,7 @@ def inset_into_db(content_list: list) -> int:
                         "best_popularity" = case when ("best_popularity" > {popularity}) then {popularity} else "best_popularity" end,
                         "country" = '{country}',
                         "content_type" = '{content_type}', 
-                        "type" = '{item_type}',
+                        "record_type" = '{item_type}',
                         "released_at" = '{released_at}', 
                         "url" = '{url}', 
                         "genres" = '{genres}', 
