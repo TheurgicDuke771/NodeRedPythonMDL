@@ -11,7 +11,7 @@ ETL_TIME = now.strftime("%Y-%m-%d %H:%M:%S")
 
 try:
     scraper = cloudscraper.create_scraper()
-    for year in range((current_year - 8), (current_year + 1)):
+    for year in range(2016, (current_year + 1)):
         if year == current_year:
             for q in range(1, current_quarter + 1):
                 current_seasonal = scraper.post(
