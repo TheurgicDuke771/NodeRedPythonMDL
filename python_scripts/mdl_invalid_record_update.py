@@ -26,7 +26,7 @@ for db_name in DB_LIST:
             update 
                 public.{db_name} 
             set 
-                ranking = 99999, 
+                ranking = 999999, 
                 released_at = '2099-12-31', 
                 rating = 0, 
                 update_ts = '{ETL_TIME}'

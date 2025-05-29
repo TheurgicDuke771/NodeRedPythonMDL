@@ -49,11 +49,11 @@ def inset_into_db(content_list: list) -> int:
                 try:
                     ranking = item["ranking"]
                 except:
-                    ranking = 99999
+                    ranking = 999999
                 try:
                     popularity = item["popularity"]
                 except:
-                    popularity = 99999
+                    popularity = 999999
                 try:
                     country = item["country"]
                 except:
@@ -90,7 +90,7 @@ def inset_into_db(content_list: list) -> int:
                 try:
                     rating = item["rating"]
                 except:
-                    rating = 99999
+                    rating = 999999
 
                 if item_type == "Movie":
                     table_name = "movie" 
