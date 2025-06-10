@@ -1,5 +1,5 @@
 from datetime import datetime
-import requests
+import cloudscraper
 import pandas.io.sql as sqlio
 from db_connection import get_db_connection
 
@@ -9,16 +9,20 @@ DB_LIST = ['tv', 'drama', 'movie']
 
 for db_name in DB_LIST:
     try:
+        scraper = cloudscraper.create_scraper()
         conn = get_db_connection(system_name="MDL")
         cur = conn.cursor()
 
-        fetch_query = f"select * from public.{db_name} where DATE_PART('day', localtimestamp(0) - update_ts) > 30;"
+        fetch_query = f"""
+            select * from public.{db_name} 
+            where DATE_PART('day', localtimestamp(0) - update_ts) > 30;
+        """
         df = sqlio.read_sql_query(fetch_query, conn)
         print(f"{ETL_TIME} INFO: Fetched {len(df)} records for {db_name} DB")
 
         id_list = []
         for index, row in df.iterrows():
-            response = requests.request("GET", row["url"])
+            response = scraper.get(row["url"])
             if response.status_code == 404:
                 id_list.append(str(row["id"]))
         if len(id_list) != 0:
