@@ -30,174 +30,103 @@ def inset_into_db(content_list: list) -> int:
 
     try:
         conn = get_db_connection(system_name="MDL")
-        cur = conn.cursor()
+        with conn, conn.cursor() as cur:
+            for item in content_list:
+                try:
+                    item_id = item.get("id")
+                    if item_id is None:
+                        raise Exception(f"ID Not Found. {item}")
 
-        for item in content_list:
-            try:
-                try:
-                    item_id = item["id"]
-                except:
-                    raise Exception(f"ID Not Found. {item}")
-                try:
-                    title = item["title"].replace("'", "''")
-                except:
-                    title = "No working Title"
-                try:
-                    episodes = item["episodes"]
-                except:
-                    episodes = 0
-                try:
-                    ranking = item["ranking"]
-                except:
-                    ranking = 999999
-                try:
-                    popularity = item["popularity"]
-                except:
-                    popularity = 999999
-                try:
-                    country = item["country"]
-                except:
-                    country = "Country Name Not Found"
-                try:
-                    content_type = item["content_type"]
-                except:
-                    content_type = "Content Type Not Found"
-                try:
-                    item_type = item["type"]
-                except:
-                    raise Exception(f"Type Not Found. {item}")
-                try:
-                    datetime.strptime(item["released_at"], "%Y-%m-%d")
-                    released_at = item["released_at"]
-                except:
-                    released_at = "2099-12-31"
-                try:
-                    url = f"https://mydramalist.com{item['url']}"
-                except:
-                    raise Exception(f"URL Not Found. {item}")
-                try:
-                    genres = item["genres"]
-                except:
-                    genres = "Dfault"
-                try:
-                    thumbnail = item["thumbnail"]
-                except:
-                    thumbnail = "https://i.mydramalist.com/_4t.jpg"
-                try:
-                    cover = item["cover"]
-                except:
-                    cover = "https://i.mydramalist.com/_4c.jpg"
-                try:
-                    rating = item["rating"]
-                except:
-                    rating = 999999
+                    title = item.get("title", "No working Title").replace("'", "''")
+                    episodes = item.get("episodes", 0)
+                    ranking = item.get("ranking", 999999)
+                    popularity = item.get("popularity", 999999)
+                    country = item.get("country", "Country Name Not Found")
+                    content_type = item.get("content_type", "Content Type Not Found")
+                    item_type = item.get("type")
+                    if item_type is None:
+                        raise Exception(f"Type Not Found. {item}")
 
-                if item_type == "Movie":
-                    table_name = "movie" 
-                elif (item_type == "Drama") or (item_type == "Special"):
-                    table_name = "drama" 
-                else:
-                    table_name = "tv"
-
-                fetch_query = f'SELECT * FROM {table_name} WHERE "id" = {item_id};'
-                result = pd.read_sql(fetch_query, conn)
-
-                if len(result) == 0:
+                    released_at = item.get("released_at", "2099-12-31")
                     try:
-                        synopsis = get_synopsis(item_url=item["url"])
-                    except:
-                        synopsis = "No synopsis available"
+                        datetime.strptime(released_at, "%Y-%m-%d")
+                    except Exception:
+                        released_at = "2099-12-31"
 
-                    insert_query = f"""
-                    INSERT INTO {table_name} 
-                    ("id", "title", "episodes", "ranking", 
-                    "best_ranking", "popularity", "best_popularity", 
-                    "country", "content_type", "record_type", "synopsis",
-                    "released_at", "url", "genres", "thumbnail",
-                    "cover", "rating", "best_rating", "insert_ts", "update_ts") 
-                    VALUES 
-                    ({item_id}, '{title}', {episodes}, {ranking}, {ranking},
-                    {popularity}, {popularity}, '{country}', '{content_type}',
-                    '{item_type}', '{synopsis}', '{released_at}', '{url}', '{genres}',
-                    '{thumbnail}', '{cover}', {rating}, {rating}, '{ETL_TIME}', '{ETL_TIME}');
-                    """
+                    url = f"https://mydramalist.com{item.get('url', '')}"
+                    genres = item.get("genres", "Default")
+                    thumbnail = item.get("thumbnail", "https://i.mydramalist.com/_4t.jpg")
+                    cover = item.get("cover", "https://i.mydramalist.com/_4c.jpg")
+                    rating = item.get("rating", 999999)
 
-                    cur.execute(insert_query)
-                    conn.commit()
-                    affected_rec_cnt += 1
+                    table_name = (
+                        "movie" if item_type == "Movie"
+                        else "drama" if item_type in ("Drama", "Special")
+                        else "tv"
+                    )
 
-                else:
-                    existing_synopsis = result["synopsis"].values[0]
-                    if (
-                        (existing_synopsis == "No synopsis available")
-                        or (existing_synopsis[-3:] == "...")
-                        or (existing_synopsis == "Remove ads")
-                    ):
-                        try:
-                            synopsis = get_synopsis(item_url=item["url"])
-                        except:
-                            synopsis = "No synopsis available"
+                    fetch_query = f'SELECT * FROM {table_name} WHERE "id" = %s;'
+                    result = pd.read_sql(fetch_query, conn, params=(item_id,))
 
-                        update_query = f"""
-                        UPDATE {table_name} SET 
-                        "title" = '{title}',
-                        "episodes" = {episodes}, 
-                        "ranking" = {ranking}, 
-                        "best_ranking" = case when ("best_ranking" > {ranking}) then {ranking} else "best_ranking" end,
-                        "popularity" = {popularity}, 
-                        "best_popularity" = case when ("best_popularity" > {popularity}) then {popularity} else "best_popularity" end,
-                        "country" = '{country}',
-                        "content_type" = '{content_type}', 
-                        "record_type" = '{item_type}',
-                        "synopsis" = '{synopsis}', 
-                        "released_at" = '{released_at}', 
-                        "url" = '{url}', 
-                        "genres" = '{genres}', 
-                        "thumbnail" = '{thumbnail}', 
-                        "cover" = '{cover}', 
-                        "rating" = {rating}, 
-                        "best_rating" = case when ("best_rating" < {rating}) then {rating} else "best_rating" end,
-                        "update_ts" = '{ETL_TIME}'
-                        WHERE "id" = {item_id};
+                    if len(result) == 0:
+                        synopsis = get_synopsis(item.get("url", "")) or "No synopsis available"
+                        insert_query = f"""
+                        INSERT INTO {table_name} 
+                        ("id", "title", "episodes", "ranking", 
+                        "best_ranking", "popularity", "best_popularity", 
+                        "country", "content_type", "record_type", "synopsis",
+                        "released_at", "url", "genres", "thumbnail",
+                        "cover", "rating", "best_rating", "insert_ts", "update_ts") 
+                        VALUES 
+                        (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
                         """
-                        cur.execute(update_query)
-                        conn.commit()
+                        cur.execute(insert_query, (
+                            item_id, title, episodes, ranking, ranking, popularity, popularity,
+                            country, content_type, item_type, synopsis, released_at, url, genres,
+                            thumbnail, cover, rating, rating, ETL_TIME, ETL_TIME
+                        ))
                         affected_rec_cnt += 1
-
                     else:
+                        existing_synopsis = result["synopsis"].values[0]
+                        needs_synopsis = (
+                            existing_synopsis == "No synopsis available"
+                            or existing_synopsis[-3:] == "..."
+                            or existing_synopsis == "Remove ads"
+                        )
+                        synopsis = get_synopsis(item.get("url", "")) if needs_synopsis else existing_synopsis
                         update_query = f"""
                         UPDATE {table_name} SET 
-                        "title" = '{title}',
-                        "episodes" = {episodes}, 
-                        "ranking" = {ranking}, 
-                        "best_ranking" = case when ("best_ranking" > {ranking}) then {ranking} else "best_ranking" end,
-                        "popularity" = {popularity}, 
-                        "best_popularity" = case when ("best_popularity" > {popularity}) then {popularity} else "best_popularity" end,
-                        "country" = '{country}',
-                        "content_type" = '{content_type}', 
-                        "record_type" = '{item_type}',
-                        "released_at" = '{released_at}', 
-                        "url" = '{url}', 
-                        "genres" = '{genres}', 
-                        "thumbnail" = '{thumbnail}', 
-                        "cover" = '{cover}', 
-                        "rating" = {rating}, 
-                        "best_rating" = case when ("best_rating" < {rating}) then {rating} else "best_rating" end,
-                        "update_ts" = '{ETL_TIME}'
-                        WHERE "id" = {item_id};
+                        "title" = %s,
+                        "episodes" = %s, 
+                        "ranking" = %s, 
+                        "best_ranking" = case when ("best_ranking" > %s) then %s else "best_ranking" end,
+                        "popularity" = %s, 
+                        "best_popularity" = case when ("best_popularity" > %s) then %s else "best_popularity" end,
+                        "country" = %s,
+                        "content_type" = %s, 
+                        "record_type" = %s,
+                        "synopsis" = %s, 
+                        "released_at" = %s, 
+                        "url" = %s, 
+                        "genres" = %s, 
+                        "thumbnail" = %s, 
+                        "cover" = %s, 
+                        "rating" = %s, 
+                        "best_rating" = case when ("best_rating" < %s) then %s else "best_rating" end,
+                        "update_ts" = %s
+                        WHERE "id" = %s;
                         """
-                        cur.execute(update_query)
-                        conn.commit()
+                        cur.execute(update_query, (
+                            title, episodes, ranking, ranking, ranking, popularity, popularity, popularity,
+                            country, content_type, item_type, synopsis, released_at, url, genres,
+                            thumbnail, cover, rating, rating, rating, ETL_TIME, item_id
+                        ))
                         affected_rec_cnt += 1
-            except Exception as e:
-                print(f"{ETL_TIME} WARNING: {str(e)}")
-
+                except Exception as e:
+                    print(f"{ETL_TIME} WARNING: {str(e)}")
+            conn.commit()
         return affected_rec_cnt
 
     except Exception as e:
         print(f"{ETL_TIME} ERROR: {str(e)}")
         return affected_rec_cnt
-
-    finally:
-        cur.close()
-        conn.close()
